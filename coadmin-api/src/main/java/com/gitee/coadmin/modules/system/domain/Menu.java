@@ -36,9 +36,6 @@ public class Menu extends DataEntity implements Serializable {
     @ApiModelProperty(value = "菜单标题")
     private String title;
 
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-    private String titleLetter;
-
     @ApiModelProperty(value = "组件名称")
     private String componentName;
 
