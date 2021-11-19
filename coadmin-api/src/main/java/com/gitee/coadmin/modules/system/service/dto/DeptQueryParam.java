@@ -27,12 +27,6 @@ public class DeptQueryParam{
     @Query
     private Long pid;
 
-    @Query(propName = "tree_pids", type = Query.Type.INNER_LIKE)
-    private String pids;
-    public String getPids() {
-        return "/"+pids+"/";
-    }
-
     @Query(blurry = "id,treeNames,treeNamesLetter")
     private String blurry;
 

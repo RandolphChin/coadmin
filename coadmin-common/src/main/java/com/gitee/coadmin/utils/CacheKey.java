@@ -38,6 +38,12 @@ public interface CacheKey {
     String USER_ID = "user::id:";
     String USER_NAME = "user::username:";
     /**
+     * 部门
+     */
+    String DEPT_ID = "dept::id:";
+    String DEPT_PID = "dept::pid:";
+
+    /**
      * 数据
      */
     String DATE_USER = "data::user:";

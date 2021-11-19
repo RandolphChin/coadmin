@@ -21,19 +21,13 @@ public class DeptDto extends DataDto {
     private static final long serialVersionUID = 1L;
 
     private Long id;
-    private String deptCode;
 
     private String name;
     private String nameLetter;
     private Integer sort;
 
     private Long pid;
-    private String treePids;
-    private String treeNames;
-    private String treeNamesLetter;
-    private String treeSorts;
-    private Integer treeLevel;
-    private Boolean treeLeaf;
+
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private List<DeptDto> children;

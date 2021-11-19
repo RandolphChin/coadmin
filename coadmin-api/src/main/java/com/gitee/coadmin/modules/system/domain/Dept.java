@@ -25,16 +25,9 @@ public class Dept extends DataEntity {
     @TableId(value="id", type= IdType.AUTO)
     private Long id;
 
-    @ApiModelProperty(value = "机构编码")
-    private String deptCode;
-
     @ApiModelProperty(value = "名称")
     @NotBlank
     private String name;
-
-    @ApiModelProperty(value = "名称首字母")
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-    private String nameLetter;
 
     @ApiModelProperty(value = "排序")
     @NotNull
@@ -42,24 +35,6 @@ public class Dept extends DataEntity {
 
     @ApiModelProperty(value = "上级ID")
     private Long pid;
-
-    @ApiModelProperty(value = "所有上级ID,'/'分隔")
-    private String treePids;
-
-    @ApiModelProperty(value = "是否叶子节点1=是0=否")
-    private Boolean treeLeaf;
-
-    @ApiModelProperty(value = "含所有父节点的名称,'/'分隔")
-    private String treeNames;
-
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-    private String treeNamesLetter;
-
-    @ApiModelProperty(value = "含所有父节点的排序,'/'分隔")
-    private String treeSorts;
-
-    @ApiModelProperty(value = "层级，从0开始")
-    private Integer treeLevel;
 
     @ApiModelProperty(value = "状态")
     @NotNull

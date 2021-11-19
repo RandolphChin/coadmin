@@ -14,6 +14,6 @@
 
     <select id="selectIdsByPid" resultType="java.lang.Long">
         SELECT id FROM sys_dept a WHERE pid=#{pid}
-        ORDER BY tree_sorts
+        ORDER BY sort
     </select>
 </mapper>
