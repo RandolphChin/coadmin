@@ -266,7 +266,7 @@ export default {
   name: '${className}',
   components: { CrudOperation, CrudMore, CrudPagination, CrudRow },
   cruds() {
-    return CRUD({ columns, visibleColumns, title: '${apiAlias}', idField: '${pkChangeColName}', sort: ['${pkChangeColName},desc'], url: 'api/${subModuleName}/${minusClassName}', crudMethod: { ...Crud${className} } })
+    return CRUD({ columns, visibleColumns, title: '${apiAlias}', idField: '${pkChangeColName}', sort: ['${pkChangeColName},desc'], url: 'api/${subModuleName}', crudMethod: { ...Crud${className} } })
   },
   mixins: [presenter(), header(), form(defaultForm), crud()],
   data () {

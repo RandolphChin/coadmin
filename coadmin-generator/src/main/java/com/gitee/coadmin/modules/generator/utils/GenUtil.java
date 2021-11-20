@@ -407,7 +407,8 @@ public class GenUtil {
         }
 
         if ("index".equals(templateName)) {
-            return pagesPath + File.separator +  (StrUtil.isNotBlank(subModuleName)?subModuleName + File.separator : "") + apiName + File.separator + "index.vue";
+           // return pagesPath + File.separator +  (StrUtil.isNotBlank(subModuleName)?subModuleName + File.separator : "") + apiName + File.separator + "index.vue";
+            return pagesPath + File.separator +  (StrUtil.isNotBlank(subModuleName)?subModuleName + File.separator : "") + "index.vue";
         }
 
         return null;

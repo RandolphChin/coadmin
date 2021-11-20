@@ -5,7 +5,7 @@
   <!-- 通用查询结果列 -->
   <!--
   <sql id="Base_Column_List">
-      a.id, a.name, a.cron_open, a.cron_close, a.status, a.job_id, a.job_week
+      a.name, a.cron_open, a.cron_close, a.status, a.job_id, a.job_week, a.id
   </sql>
   -->
 </mapper>

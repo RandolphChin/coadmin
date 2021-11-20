@@ -12,10 +12,8 @@ import java.sql.Timestamp;
 import java.math.BigDecimal;
 </#if>
 import java.util.Date;
-<#if !auto && pkColumnType == 'Long'>
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-</#if>
 <#if isNotNullColumns??>
 import javax.validation.constraints.*;
 </#if>
@@ -66,7 +64,7 @@ public class ${className}DTO extends BaseDto {
       ${className}DTO obj = (${className}DTO) o;
       return Objects.equals(id, obj.id);
     }
-    
+
     @Override
     public int hashCode() {
       return Objects.hash(id);

@@ -14,11 +14,19 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.*;
 import java.util.Set;
+import com.alibaba.excel.write.style.column.LongestMatchColumnWidthStyleStrategy;
+import com.alibaba.excel.EasyExcel;
+import com.gitee.coadmin.modules.system.service.dto.UserQueryParam;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.net.URLEncoder;
+
 
 /*  添加菜单的 SQL
 <#if hasMenuPid>
 INSERT INTO sys_menu(pid, sub_count, `type`, title, title_letter, component_name, `component`, sort, `path`, i_frame, `cache`, hidden, permission)
-    VALUES (${menuPid}, 4, 1, '${apiAlias}', '${apiAliasLetter}', '${className}', '${subModuleName}/${minusClassName}/index', 10, '${minusClassName}', 0, 0, 0, '');
+    VALUES (${menuPid}, 4, 1, '${apiAlias}', '${apiAliasLetter}', '${className}', '${subModuleName}/index', 10, '', 0, 0, 0, '');
 SELECT @lastId:=LAST_INSERT_ID();
 INSERT INTO sys_menu(pid, sub_count, `type`, title, sort, i_frame, `cache`, hidden, permission)
     VALUES (@lastId, 0, 2, '查看${apiAlias}', 10, 0, 0, 0, '${changeClassName}:list');
@@ -30,7 +38,7 @@ INSERT INTO sys_menu(pid, sub_count, `type`, title, sort, i_frame, `cache`, hidd
     VALUES (@lastId, 0, 2, '删除${apiAlias}', 40, 0, 0, 0, '${changeClassName}:del');
 <#else>
 INSERT INTO sys_menu(pid, sub_count, `type`, title, title_letter, component_name, `component`, sort, `path`, i_frame, `cache`, hidden, permission)
-    VALUES (null, 4, 1, '${apiAlias}', '${apiAliasLetter}', '${className}', '${subModuleName}/${minusClassName}/index', 10, '${minusClassName}', 0, 0, 0, '${changeClassName}:list');
+    VALUES (null, 4, 1, '${apiAlias}', '${apiAliasLetter}', '${className}', '${subModuleName}/index', 10, '', 0, 0, 0, '${changeClassName}:list');
 SELECT @lastId:=LAST_INSERT_ID();
 INSERT INTO sys_menu(pid, sub_count, `type`, title, sort, i_frame, `cache`, hidden, permission)
     VALUES (@lastId, 0, 2, '查看${apiAlias}', 10, 0, 0, 0, '${changeClassName}:list');
@@ -51,7 +59,7 @@ INSERT INTO sys_menu(pid, sub_count, `type`, title, sort, i_frame, `cache`, hidd
 @RestController
 @RequiredArgsConstructor
 @Api(tags = "${apiAlias}")
-@RequestMapping("/api/${subModuleName}/${minusClassName}")
+@RequestMapping("/api/${subModuleName}")
 public class ${className}Controller {
 
     private final ${className}Service ${changeClassName}Service;
@@ -93,7 +101,7 @@ public class ${className}Controller {
     @UnifiedAPI(enable = false)
     @GetMapping(value = "/download")
     @PreAuthorize("@el.check('${changeClassName}:list')")
-    public void download(HttpServletResponse response, UserQueryParam criteria) throws IOException {
+    public void download(HttpServletResponse response, ${className}QueryParam criteria) throws IOException {
         response.setContentType("application/vnd.ms-excel");
         response.setCharacterEncoding("utf-8");
         // 这里URLEncoder.encode可以防止中文乱码
@@ -102,6 +110,6 @@ public class ${className}Controller {
         EasyExcel.write(response.getOutputStream(), ${className}DTO.class)
             .sheet("${apiAlias}")
             .registerWriteHandler(new LongestMatchColumnWidthStyleStrategy())
-            .doWrite(${className}Service.queryAll(criteria));
+            .doWrite(${changeClassName}Service.queryAll(criteria));
     }
 }

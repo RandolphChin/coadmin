@@ -11,6 +11,7 @@ import com.gitee.coadmin.exception.EntityExistException;
     </#list>
 </#if>
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import com.gitee.coadmin.utils.QueryHelpMybatisPlus;
 import com.gitee.coadmin.base.PageInfo;
 import com.gitee.coadmin.utils.PageUtil;
@@ -89,7 +90,7 @@ public class ${className}ServiceImpl implements ${className}Service {
         // delCaches(ids);
         return ${changeClassName}Mapper.deleteBatchIds(ids);
     }
-    
+
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int removeById(${pkColumnType} id){
