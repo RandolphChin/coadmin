@@ -1,5 +1,6 @@
 package ${package}.service;
 
+import com.gitee.coadmin.base.CommonService;
 import com.gitee.coadmin.base.PageInfo;
 import ${package}.domain.${className};
 import ${package}.service.dto.${className}DTO;
@@ -13,7 +14,7 @@ import java.util.Set;
  * @author ${author}
  * @since ${date}
  */
-public interface ${className}Service {
+public interface ${className}Service extends CommonService<${className}> {
 
     String CACHE_KEY = "${subModuleName}/${minusClassName}";
 

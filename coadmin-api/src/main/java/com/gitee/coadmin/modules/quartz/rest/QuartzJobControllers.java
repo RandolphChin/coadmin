@@ -17,7 +17,7 @@ import java.util.Map;
 
 @RestController
 @Slf4j
-@RequestMapping("/api/jobs")
+@RequestMapping("/api/quartz")
 public class QuartzJobControllers {
 
     @Autowired

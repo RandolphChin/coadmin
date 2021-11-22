@@ -1,6 +1,7 @@
 package ${package}.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.gitee.coadmin.base.impl.CommonServiceImpl;
 <#if columns??>
     <#list columns as column>
         <#if column.columnKey = 'UNI'>
@@ -39,7 +40,7 @@ import java.util.*;
 @RequiredArgsConstructor
 // @CacheConfig(cacheNames = ${className}Service.CACHE_KEY)
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
-public class ${className}ServiceImpl implements ${className}Service {
+public class ${className}ServiceImpl extends CommonServiceImpl<${className}Mapper, ${className}> implements ${className}Service {
 
     // private final RedisUtils redisUtils;
     private final ${className}Mapper ${changeClassName}Mapper;
