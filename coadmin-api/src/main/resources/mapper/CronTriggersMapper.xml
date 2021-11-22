@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gitee.coadmin.modules.quartz.service.mapper.CronTriggersMapper">
+
+  <!-- 通用查询结果列 -->
+  <!--
+  <sql id="Base_Column_List">
+      a.SCHED_NAME, a.TRIGGER_NAME, a.TRIGGER_GROUP, a.CRON_EXPRESSION, a.TIME_ZONE_ID
+  </sql>
+  -->
+  <select id="getAllJob" resultType="com.gitee.coadmin.modules.quartz.service.dto.CronInfoDto">
+SELECT
+	a.JOB_NAME jobName,
+	a.JOB_GROUP groupName,
+	a.JOB_CLASS_NAME jobClass,
+	b.DESCRIPTION param,
+	b.PREV_FIRE_TIME prevFireTime,
+	b.NEXT_FIRE_TIME nextFireTime,
+	b.TRIGGER_STATE triggerState,
+	c.CRON_EXPRESSION cronExpression
+FROM
+	qrtz_job_details a
+LEFT JOIN qrtz_triggers b ON a.JOB_NAME = b.JOB_NAME
+AND b.TRIGGER_GROUP = a.JOB_GROUP
+LEFT JOIN qrtz_cron_triggers c ON b.TRIGGER_NAME = c.TRIGGER_NAME
+AND b.TRIGGER_GROUP = c.TRIGGER_GROUP
+where a.JOB_NAME like concat('%',#{jobName,jdbcType=VARCHAR},'%')
+	  <choose>
+		  <when test=" triggerState != null">
+			  and b.TRIGGER_STATE = #{triggerState,jdbcType=VARCHAR}
+		  </when>
+	  </choose>
+  </select>
+</mapper>

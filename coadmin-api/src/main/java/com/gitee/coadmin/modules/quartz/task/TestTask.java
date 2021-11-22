@@ -16,6 +16,12 @@
 package com.gitee.coadmin.modules.quartz.task;
 
 import lombok.extern.slf4j.Slf4j;
+import org.quartz.DisallowConcurrentExecution;
+import org.quartz.Job;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
 
 /**
@@ -25,17 +31,15 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-public class TestTask {
-
-    public void run(){
-        log.info("run 执行成功");
-    }
-
-    public void run1(String str){
-        log.info("run1 执行成功，参数为： {}" + str);
-    }
-
-    public void run2(){
-        log.info("run2 执行成功");
+@DisallowConcurrentExecution
+public class TestTask implements Job {
+    // websocket push to client
+    @Autowired
+    private SimpMessagingTemplate messagingTemplate;
+    @Override
+    public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
+        log.info("run test 执行成功");
+        // websocket push messge from server to client
+        // messagingTemplate.convertAndSend("/topic/quartz", "msg from server to bowser");
     }
 }
