@@ -119,7 +119,7 @@
         :loading="crud.loading"
         :filter="filterTable"
         :selected.sync="crud.selections"
-        selection="none"
+        selection="multiple"
         @row-click="(evt, row, index) => crud.selections = [row]"
         @row-dblclick="(evt, row, index) => crud.toView(row)"
     >
@@ -186,12 +186,12 @@
           </#if>
   </#list>
           <!-- 点击“更多..”才显示的搜索项 -->
-          <template v-if="crud.props.queryMore">
-          </template>
+         <#-- <template v-if="crud.props.queryMore">
+          </template>-->
           <div>
-            <co-btn :label="crud.props.queryMore?'«更少':'更多»'" flat @click="crud.props.queryMore = !crud.props.queryMore"/>
-            <co-btn label="重置" flat @click="crud.resetQuery()" />
-            <co-btn icon="search" color="primary" @click="crud.toQuery()" />
+            <#--<co-btn :label="crud.props.queryMore?'«更少':'更多»'" flat @click="crud.props.queryMore = !crud.props.queryMore"/>-->
+            <co-btn label="搜索" icon="search" color="positive" padding="xs sm" @click="crud.toQuery()" />
+            <co-btn label="重置" icon="replay" color="warning" padding="xs sm" @click="crud.resetQuery()" class="q-ml-sm" />
           </div>
           <q-space/>
 </#if>
@@ -200,7 +200,7 @@
       <template v-slot:top-right="props">
         <div class='row q-col-gutter-x-sm q-col-gutter-y-xs q-pa-xs full-width'>
           <!--如果想在工具栏加入更多按钮，可以使用插槽方式， 'start' or 'end'-->
-          <crud-operation :permission="permission" no-label no-view no-edit/>
+          <crud-operation :permission="permission" no-view/>
           <div>
             <co-btn-dropdown color="primary" class="btn-dropdown-hide-droparrow" icon="apps" auto-close>
               <crud-more :tableSlotTopProps="props">
@@ -223,6 +223,7 @@
               flat
               no-add
               no-icon
+              no-edit
           />
         </q-td>
       </template>
