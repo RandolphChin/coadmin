@@ -24,7 +24,7 @@ public class UserQueryParam{
     private Long id;
 
     @Query(propName = "id", type = Query.Type.IN_SQL,
-            sql="SELECT DISTINCT user_id FROM sys_users_depts WHERE dept_id=? OR dept_id IN(SELECT id FROM sys_dept WHERE tree_pids LIKE '%/?/%')")
+            sql="SELECT DISTINCT user_id FROM sys_users_depts WHERE dept_id=? OR dept_id IN(SELECT id FROM sys_dept WHERE id=?)")
     private Long deptId;
 
     @Query(blurryLikeRight = "id,username,phone,email")

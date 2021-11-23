@@ -1,3 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.gitee.app.config.AppMybatisPlusFillHandler,\
-  com.gitee.app.config.MybatisPlusConfig
