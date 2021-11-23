@@ -93,7 +93,7 @@ wx:
       host: ${REDIS_HOST:127.0.0.1}
       port: ${REDIS_PORT:6379}
     configs:
-      - appId: wx432d37972042d2f7 # 第一个小程序的appid
-        secret: 36af3dac52242057626d378337a96ffa
+      - appId: wx47b65fb0975cc63c # 第一个小程序的appid
+        secret: 75940e9aaac8b41db9d793118cd3e648
         token:
         aesKey:
