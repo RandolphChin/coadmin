@@ -15,8 +15,13 @@
  */
 package com.gitee.coadmin.config;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -24,7 +29,12 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+import java.util.TimeZone;
 
 /**
  * WebMvcConfigurer
@@ -72,4 +82,37 @@ public class ConfigurerAdapter implements WebMvcConfigurer {
         registry.addResourceHandler("/file/**").addResourceLocations(pathUtl).setCachePeriod(0);
         registry.addResourceHandler("/**").addResourceLocations("classpath:/META-INF/resources/").setCachePeriod(0);
     }
+    // 消息转换器
+    @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        /*
+        // 使用 fastjson 序列化，会导致 @JsonIgnore 失效，可以使用 @JSONField(serialize = false) 替换
+        FastJsonHttpMessageConverter converter = new FastJsonHttpMessageConverter();
+        List<MediaType> supportMediaTypeList = new ArrayList<>();
+        supportMediaTypeList.add(MediaType.APPLICATION_JSON_UTF8);
+        FastJsonConfig config = new FastJsonConfig();
+        config.setDateFormat("yyyy-MM-dd HH:mm:ss");
+        config.setSerializerFeatures(SerializerFeature.DisableCircularReferenceDetect);
+        converter.setFastJsonConfig(config);
+        converter.setSupportedMediaTypes(supportMediaTypeList);
+        converter.setDefaultCharset(StandardCharsets.UTF_8);
+        converters.add(converter);
+*/
+
+        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+        List<MediaType> supportMediaTypeList = new ArrayList<>();
+        supportMediaTypeList.add(MediaType.APPLICATION_JSON_UTF8);
+        converter.setSupportedMediaTypes(supportMediaTypeList);
+        converter.setDefaultCharset(StandardCharsets.UTF_8);
+        ObjectMapper objectMapper = converter.getObjectMapper();
+        // 时间格式化
+        objectMapper.setTimeZone(TimeZone.getDefault());
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
+        // 设置格式化内容
+        converter.setObjectMapper(objectMapper);
+        converters.add(0, converter);
+
+    }
+
 }

@@ -44,7 +44,7 @@ public class QuartzConfig {
 	private final String DB_HOST ="DB_HOST";
 	private final String DB_PORT ="DB_PORT";
 	private final String DB_NAME ="DB_NAME";
-
+	private final String DB_PWD ="DB_PWD";
 	/**
 	 * 解决Job中注入Spring Bean为null的问题
 	 */
@@ -81,10 +81,15 @@ public class QuartzConfig {
 		String dbHost = environment.getProperty(DB_HOST);
 		String dbPort = environment.getProperty(DB_PORT);
 		String dbName = environment.getProperty(DB_NAME);
+		String dbPwdEnv = environment.getProperty(DB_PWD);
 		String realUrl = this.resolveUrl(url,dbHost,dbPort,dbName);
 		properties.setProperty("org.quartz.dataSource.qzDS.URL",realUrl);
 		if(ObjectUtil.isNotNull(dbPwd)){
-			properties.setProperty("org.quartz.dataSource.qzDS.password",dbPwd);
+			if(ObjectUtil.isNotNull(dbPwdEnv)){
+				properties.setProperty("org.quartz.dataSource.qzDS.password",dbPwdEnv);
+			}else{
+				properties.setProperty("org.quartz.dataSource.qzDS.password",dbPwd);
+			}
 		}
 		//创建SchedulerFactoryBean
 		SchedulerFactoryBean factory = new SchedulerFactoryBean();
